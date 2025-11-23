@@ -7,6 +7,9 @@
 </head>
 <body>
     <h2>Registration Form</h2>
+	
+	<p th:if="${error.hasError}" th:text="${error.msg}" style="color: red;"></p>
+	
     <form action="/register" method="post" th:object="${registerForm}">
         <div>
             <label for="name">First Name:</label>

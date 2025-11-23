@@ -10,6 +10,7 @@ public class AuthController {
 
 	@GetMapping("/register")
 	public String getRegisterPage(Model model) {
+		model.addAttribute("error", new ValidationError());
 		model.addAttribute("registerForm", new RegistrationForm());
 		return "register.html";
 	}
@@ -23,7 +24,8 @@ public class AuthController {
 		//TODO: Make sure first name is not empty
 		if(form.getFirstName().isBlank()) {
 			// send "First name cannot be empty"
-			model.addAttribute("error", "First name cannot be empty");
+			model.addAttribute("error", new ValidationError("First name cannot be empty"));
+			model.addAttribute("registerForm", form);
 			return "register.html";
 		}
 		

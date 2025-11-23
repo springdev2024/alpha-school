@@ -2,25 +2,30 @@ package com.example.demo;
 
 public class ValidationError {
 	
-	private boolean hasError;
-	private String error;
+	private boolean hasError = false;
+	private String msg;
 	
-	public ValidationError(String erorr) {
-		this.error = error;
+	public ValidationError(String errorMessage) {
+		this.msg = errorMessage;
 		this.hasError = true;
 	}
 	
-	public boolean isHasError() {
+	public ValidationError() {
+	}
+	
+	public boolean getHasError() {
 		return hasError;
 	}
 	public void setHasError(boolean hasError) {
 		this.hasError = hasError;
 	}
-	public String getError() {
-		return error;
+
+	public String getMsg() {
+		return msg;
 	}
-	public void setError(String error) {
-		this.error = error;
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 	
 }
