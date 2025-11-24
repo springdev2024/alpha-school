@@ -86,4 +86,17 @@ public class AuthController {
 		return "login.html";
 	}
 	
+	@PostMapping("/login")
+	public String loginUser(LoginForm form, Model model) {
+		
+		//TODO: find user in db by form's email
+		//TODO: match the form's password with db password using encoder
+		//TODO: if match found, set a new cookie (session) for the user
+		//TODO: 	store created cookie in db
+		//TODO: 	redirect to dashboard
+		//TODO: if match not found, send "Invalid credentials" error message
+		
+		return "redirect:/dashboard";
+	}
+	
 }
