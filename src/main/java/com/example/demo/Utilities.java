@@ -1,7 +1,7 @@
 package com.example.demo;
 
 public class Utilities {
-
+	
 	/**
 	 * checks whether the provided password is valid satisfying the required constraints
 	 * at least 8 characters

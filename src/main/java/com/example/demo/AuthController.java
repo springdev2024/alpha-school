@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthController {
+	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -45,6 +48,7 @@ public class AuthController {
 		
 		//TODO: Make sure password & confirm password are equal
 		
+		
 		//DONE: Make sure email is unique
 		// cannot be done in client side
 		if(userRepository.existsByEmail(form.getEmail())) {
@@ -60,7 +64,9 @@ public class AuthController {
 		user.setFirstName(form.getFirstName());
 		user.setLastName(form.getLastName());
 		user.setEmail(form.getEmail());
-//		user.setPassword(); // TODO: store hash of the password
+		
+        // DONE: store hash of the password
+		user.setPassword(passwordEncoder.encode(form.getPassword()));
 		user.setType(UserType.STUDENT);
 		user.setUsername(form.getEmail());
 		user.setGender(Gender.MALE);
@@ -70,7 +76,14 @@ public class AuthController {
 		
 		//TODO: Send successful message and redirect to login page.
 	
-		return "redirect:/";
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/login")
+	public String getLoginPage(Model model) {
+		model.addAttribute("error", new ValidationError());
+		model.addAttribute("form", new LoginForm());
+		return "login.html";
 	}
 	
 }
