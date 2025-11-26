@@ -35,6 +35,15 @@
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" th:field="*{confirmPassword}">
         </div>
+		
+		<div>
+			Gender:
+			<label for="gender-male">Male</label>
+			<input type="radio" th:field="*{gender}" id="gender-male" value="MALE">
+			
+			<label for="gender-female">Female</label>
+			<input type="radio" th:field="*{gender}" id="gender-female" value="FEMALE">
+		</div>
 
         <div>
             <input type="submit" value="Register"> 
