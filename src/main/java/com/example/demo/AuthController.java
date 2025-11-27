@@ -90,22 +90,13 @@ public class AuthController {
 
 		// DONE: find user in db by form's email
 		/*
-		 * SELECT * FROM _user
-		 * WHERE _user.email = 'abc@example.com'
-		 * LIMIT 1
+		 * SELECT * FROM _user WHERE _user.email = 'abc@example.com' LIMIT 1
 		 * 
 		 */
 		User user = userRepository.findByEmail(form.getEmail());
-		
-		
-		if (user == null) {
-			model.addAttribute("error", new ValidationError("Invalid credentials!"));
-			model.addAttribute("form", form);
-			return "login.html";
-		}
 
 		// DONE: match the form's password with db password using encoder
-		if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
+		if (user == null || !passwordEncoder.matches(form.getPassword(), user.getPassword())) {
 			model.addAttribute("error", new ValidationError("Invalid credentials!"));
 			model.addAttribute("form", form);
 			return "login.html";

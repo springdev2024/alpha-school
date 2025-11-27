@@ -12,7 +12,7 @@
 	
     <form action="/register" method="post" th:object="${registerForm}">
         <div>
-            <label for="name">First Name:</label>
+            <label for="firstName">First Name:</label>
             <input type="text" th:field="*{firstName}">
         </div>
 
@@ -38,11 +38,11 @@
 		
 		<div>
 			Gender:
-			<label for="gender-male">Male</label>
 			<input type="radio" th:field="*{gender}" id="gender-male" value="MALE">
+			<label for="gender-male">Male</label>
 			
-			<label for="gender-female">Female</label>
 			<input type="radio" th:field="*{gender}" id="gender-female" value="FEMALE">
+			<label for="gender-female">Female</label>
 		</div>
 
         <div>

@@ -48,6 +48,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserType type;
 	
+	@Column(unique = true)
 	private String session;
 	
 	@CreationTimestamp
