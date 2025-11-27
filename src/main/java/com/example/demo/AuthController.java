@@ -1,11 +1,16 @@
 package com.example.demo;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class AuthController {
@@ -86,7 +91,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String loginUser(LoginForm form, Model model) {
+	public String loginUser(LoginForm form, Model model, HttpServletResponse response) throws IOException {
 
 		// DONE: find user in db by form's email
 		/*
@@ -96,17 +101,24 @@ public class AuthController {
 		User user = userRepository.findByEmail(form.getEmail());
 
 		// DONE: match the form's password with db password using encoder
+		// DONE: if match not found, send "Invalid credentials" error message
 		if (user == null || !passwordEncoder.matches(form.getPassword(), user.getPassword())) {
 			model.addAttribute("error", new ValidationError("Invalid credentials!"));
 			model.addAttribute("form", form);
 			return "login.html";
 		}
-
-		// TODO: if match found, set a new cookie (session) for the user
-		// TODO: store created cookie in db
+		
+		// DONE: if match found, set a new cookie (session) for the user
+		String sessionID = Utilities.getRandomString(20);
+		Cookie cookie = new Cookie("SESSIONID", sessionID);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		
+		// DONE: store created cookie in db
+		user.setSession(sessionID);
+		userRepository.save(user);
+		
 		// TODO: redirect to dashboard
-		// TODO: if match not found, send "Invalid credentials" error message
-
 		return "redirect:/";
 	}
 
