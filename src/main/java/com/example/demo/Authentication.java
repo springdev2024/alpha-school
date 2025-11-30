@@ -1,0 +1,43 @@
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
+public class Authentication {
+	
+	@Autowired
+	private UserRepository userRepository;
+
+	public User authenticate(HttpServletRequest request) {
+		
+		//DONE: get the value of cookie SESSIONID
+		Cookie[] cookies = request.getCookies();
+		if(cookies == null) {
+			return null;
+		}
+		
+		Cookie userCookie = null;
+		for(Cookie cookie: cookies) {
+			if(cookie.getName().equals(Utilities.COOKIE_NAME)) {
+				userCookie = cookie;
+				break;
+			}
+		}
+		
+		//cookie SESSIONID not found
+		if(userCookie == null) {
+			return null;
+		}
+		
+		//DONE: get user from database with given session ID
+		User user = userRepository.findBySession(userCookie.getValue());
+		
+		//TODO: if user found: return that user
+		//		if not found: redirect to /login
+		
+		return user;
+	}
+	
+}

@@ -119,7 +119,7 @@ public class AuthController {
 		userRepository.save(user);
 		
 		// TODO: redirect to dashboard
-		return "redirect:/";
+		return "redirect:/dashboard";
 	}
 
 }
