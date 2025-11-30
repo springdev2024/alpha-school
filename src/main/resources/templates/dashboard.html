@@ -6,6 +6,7 @@
     <title>Alpha School Dashboard</title>
 </head>
 <body>
-    <h1>Welcome Username!</h1>
+    <h1 th:text="'Welcome ' + ${user.firstName} + '!'"></h1>
+	<p th:text="${user.email}"></p>
 </body>
 </html>

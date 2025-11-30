@@ -33,8 +33,12 @@ public class Authentication {
 			return null;
 		}
 		
+//		userCookie.getValue() -> "ZHyFmZ37Lf7CeeOmcXiw"
+		
 		//DONE: get user from database with given session ID
 		User user = userRepository.findBySession(userCookie.getValue());
+		
+		
 		
 		//TODO: if user found: return that user
 		//		if not found: redirect to /login
