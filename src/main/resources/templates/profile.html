@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profile</title>
+</head>
+
+<body>
+	<h1 th:text="${user.firstName} + ' ' + ${user.lastName}"></h1>
+	<hr>
+	<div>
+		<img th:src="@{images/profile.jpg}" alt="Profile picture" height="128px">
+	</div>
+	<div>
+		Email: <span th:text="${user.email}"></span></div>
+	<div>
+		Username: <span th:text="${user.username}"></span></div>
+	<div>
+		Gender: <span th:text="${user.gender}"></span>
+	</div>
+</body>
+
+</html>
