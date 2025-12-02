@@ -1,7 +1,11 @@
-package com.example.demo;
+package com.example.demo.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.Utilities;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

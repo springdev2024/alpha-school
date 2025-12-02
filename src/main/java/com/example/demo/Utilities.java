@@ -18,7 +18,7 @@ public class Utilities {
 		&& password.matches(".*[A-Z].*");
 	}
 	
-	static String COOKIE_NAME = "SESSIONID";
+	public static String COOKIE_NAME = "SESSIONID";
 
 	static String sampleSpace = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	static int SIZE = sampleSpace.length();

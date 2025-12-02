@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.auth;
 
 import java.io.IOException;
 
@@ -8,6 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.Utilities;
+import com.example.demo.ValidationError;
+import com.example.demo.user.Gender;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
+import com.example.demo.user.UserType;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,20 +1,23 @@
-package com.example.demo;
+package com.example.demo.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.auth.Authentication;
+import com.example.demo.user.User;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class ProfileController {
+public class DashboardController {
 	
 	@Autowired
 	private Authentication authentication;
 	
-	@GetMapping("/profile")
-	public String getProfilePage(HttpServletRequest request, Model model) {
+	@GetMapping("/dashboard")
+	public String getDashboard(HttpServletRequest request, Model model) {
 		//DONE: get user from cookie
 		// user verification
 		// user identification
@@ -25,7 +28,7 @@ public class ProfileController {
 		}
 		
 		model.addAttribute("user", user);
-		return "profile.html";
+		return "dashboard.html";
 	}
 	
 }
