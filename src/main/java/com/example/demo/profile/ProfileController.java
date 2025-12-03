@@ -25,7 +25,7 @@ public class ProfileController {
 
 	@Autowired
 	private Authentication authentication;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -65,37 +65,40 @@ public class ProfileController {
 			// TODO: show Not Authorized message
 			return "redirect:/login";
 		}
-		
+
 		System.out.println("Address: " + form.getAddress());
 		System.out.println("Image: " + form.getProfile().getOriginalFilename());
 
-		//DONE: update user's address
+		// DONE: update user's address
 		user.setAddress(form.getAddress());
-		
-		//DONE: save user's profile picture
+
+		// DONE: save user's profile picture
 		MultipartFile profile = form.getProfile();
-		if(profile != null && !profile.isEmpty()) {
-			
-			//TODO: max file size limit
-			//TODO: extract file extension from original filename
-			String originalFileName = profile.getOriginalFilename();
+		if (profile != null && !profile.isEmpty()) {
+
+			// TODO: max file size limit
+
+			// DONE: extract file extension from original filename
+			String originalFileName = profile.getOriginalFilename().toLowerCase();
+			int lastIndex = originalFileName.lastIndexOf(".");
+			String fileExtension = "";
+			if (lastIndex > -1) {
+				fileExtension = originalFileName.substring(lastIndex);
+			}
+			String fileName = Instant.now().toEpochMilli() + fileExtension;
+
 			System.out.println("Original Filename: " + originalFileName);
-			
-			String fileExtension = "jpg";
-			String fileName = Instant.now().toEpochMilli() + "." + fileExtension;
-					
 			Path path = Paths.get("uploads", fileName);
-			
+
 			Files.copy(profile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			
+
 			Files.delete(Paths.get("uploads", user.getProfilePicture()));
-			
+
 			user.setProfilePicture(fileName);
 		}
-		
-		
+
 		userRepository.save(user);
-		
+
 		return "redirect:/profile";
 	}
 
