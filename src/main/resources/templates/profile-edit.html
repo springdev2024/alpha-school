@@ -12,7 +12,10 @@
 	<hr>
 	<form th:action="@{/profile/edit}" method="post" th:object="${user}" enctype="multipart/form-data">
 		<div>
-			<img th:src="@{/images/profile.jpg}" alt="Profile picture" height="128px">
+			<img th:if="${user.profilePicture == null}" th:src="@{images/profile.jpg}" alt="Profile picture"
+				height="128px">
+			<img th:if="${user.profilePicture != null}" th:src="@{uploads/{filename}(filename=${user.profilePicture})}"
+				alt="Profile picture" height="128px">
 		</div>
 		<div>
 			<input type="file" name="profile">

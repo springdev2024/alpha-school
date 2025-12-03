@@ -92,7 +92,7 @@ public class ProfileController {
 
 			Files.copy(profile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-			Files.delete(Paths.get("uploads", user.getProfilePicture()));
+//			Files.delete(Paths.get("uploads", user.getProfilePicture()));
 
 			user.setProfilePicture(fileName);
 		}
