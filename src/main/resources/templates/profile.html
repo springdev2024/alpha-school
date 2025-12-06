@@ -11,8 +11,8 @@
 	<h1 th:text="${user.firstName} + ' ' + ${user.lastName}"></h1>
 	<hr>
 	<div>
-		<img th:if="${user.profilePicture == null}" th:src="@{images/profile.jpg}" alt="Profile picture" height="128px">
-		<img th:if="${user.profilePicture != null}" th:src="@{uploads/{filename}(filename=${user.profilePicture})}"
+		<img th:if="${user.profilePicture == null}" th:src="@{/images/profile.jpg}" alt="Profile picture" height="128px">
+		<img th:if="${user.profilePicture != null}" th:src="@{/uploads/{filename}(filename=${user.profilePicture})}"
 			alt="Profile picture" height="128px">
 	</div>
 	<div>
