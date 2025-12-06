@@ -7,5 +7,5 @@
 - Storage Service for file upload
 	- StorageService.store() method for storing the given **MultipartFile** into *uploads* directory
 	- Supports all kinds of files such as jpg, pdf, mp4, etc.
-- Storage Controller for file download
+- StorageController for file download
 	- To serve all types of files from *uploads* directory
