@@ -1,6 +1,7 @@
 package com.example.demo.auth;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,10 +28,13 @@ public class AuthController {
 	@Autowired
 	private UserRepository userRepository;
 
+	private final List<String> userTypes = List.of(UserType.STUDENT.toString(), UserType.TEACHER.toString());
+
 	@GetMapping("/register")
 	public String getRegisterPage(Model model) {
 		model.addAttribute("error", new ValidationError());
 		model.addAttribute("registerForm", new RegistrationForm());
+		model.addAttribute("userTypes", userTypes);
 		return "register.html";
 	}
 
@@ -78,7 +82,7 @@ public class AuthController {
 
 		// DONE: store hash of the password
 		user.setPassword(passwordEncoder.encode(form.getPassword()));
-		user.setType(UserType.STUDENT);
+		user.setType(UserType.valueOf(form.getUserType()));
 		user.setUsername(form.getEmail());
 		user.setGender(Gender.valueOf(form.getGender()));
 
@@ -114,17 +118,17 @@ public class AuthController {
 			model.addAttribute("form", form);
 			return "login.html";
 		}
-		
+
 		// DONE: if match found, set a new cookie (session) for the user
 		String sessionID = Utilities.getRandomString(20);
 		Cookie cookie = new Cookie("SESSIONID", sessionID);
 		cookie.setPath("/");
 		response.addCookie(cookie);
-		
+
 		// DONE: store created cookie in db
 		user.setSession(sessionID);
 		userRepository.save(user);
-		
+
 		// TODO: redirect to dashboard
 		return "redirect:/dashboard";
 	}

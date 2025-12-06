@@ -8,6 +8,7 @@ public class RegistrationForm {
 	private String password;
 	private String confirmPassword;
 	private String gender;
+	private String userType;
 
 	public RegistrationForm() {
 	}
@@ -58,6 +59,14 @@ public class RegistrationForm {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }
