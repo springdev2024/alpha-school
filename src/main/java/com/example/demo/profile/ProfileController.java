@@ -2,19 +2,16 @@ package com.example.demo.profile;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.auth.Authentication;
+import com.example.demo.storage.StorageService;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 
@@ -29,9 +26,12 @@ public class ProfileController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private StorageService storageService;
+
 	@GetMapping("/profile")
 	public String getProfilePage(HttpServletRequest request, Model model) {
-		// DONE: get user from cookie
+		// get user from cookie
 		// user verification
 		// user identification
 		User user = authentication.authenticate(request);
@@ -46,7 +46,7 @@ public class ProfileController {
 
 	@GetMapping("/profile/edit")
 	public String getProfileEditPage(HttpServletRequest request, Model model) {
-		// TODO: show profile edit
+		// show profile edit page
 		User user = authentication.authenticate(request);
 		if (user == null) {
 			// TODO: show Not Authorized message
@@ -59,7 +59,7 @@ public class ProfileController {
 
 	@PostMapping("/profile/edit")
 	public String updateProfile(ProfileEditForm form, HttpServletRequest request) throws IOException {
-		// TODO: show profile edit
+		// update profile info
 		User user = authentication.authenticate(request);
 		if (user == null) {
 			// TODO: show Not Authorized message
@@ -69,35 +69,22 @@ public class ProfileController {
 		System.out.println("Address: " + form.getAddress());
 		System.out.println("Image: " + form.getProfile().getOriginalFilename());
 
-		// DONE: update user's address
+		// update user's address
 		user.setAddress(form.getAddress());
 
-		// DONE: save user's profile picture
-		MultipartFile profile = form.getProfile();
-		if (profile != null && !profile.isEmpty()) {
+		String oldProfilePicture = user.getProfilePicture();
 
-			// TODO: max file size limit
-
-			// DONE: extract file extension from original filename
-			String originalFileName = profile.getOriginalFilename().toLowerCase();
-			int lastIndex = originalFileName.lastIndexOf(".");
-			String fileExtension = "";
-			if (lastIndex > -1) {
-				fileExtension = originalFileName.substring(lastIndex);
-			}
-			String fileName = Instant.now().toEpochMilli() + fileExtension;
-
-			System.out.println("Original Filename: " + originalFileName);
-			Path path = Paths.get("uploads", fileName);
-
-			Files.copy(profile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-//			Files.delete(Paths.get("uploads", user.getProfilePicture()));
-
-			user.setProfilePicture(fileName);
-		}
+		// save user's profile picture
+		String fileName = storageService.store(form.getProfile());
+		user.setProfilePicture(fileName);
 
 		userRepository.save(user);
+		
+		// delete old profile picture file if exists
+		try {
+			Files.delete(Paths.get(StorageService.DIRECTORY, oldProfilePicture));
+		} catch (Exception e) {
+		}
 
 		return "redirect:/profile";
 	}
