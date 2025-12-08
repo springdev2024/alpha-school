@@ -11,7 +11,7 @@ import com.example.demo.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class StudentDashboardController {
+public class DashboardController {
 
 	@Autowired
 	private Authentication authentication;
@@ -26,8 +26,9 @@ public class StudentDashboardController {
 		if (user == null) {
 			return "redirect:/login";
 		}
-
+		
 		model.addAttribute("user", user);
+		
 		return "dashboard.html";
 	}
 

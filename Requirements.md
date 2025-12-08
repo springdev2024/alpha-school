@@ -1,0 +1,31 @@
+#Alpha School Management System
+
+## Functional requirements
+- Student & teacher can register an account on their own
+- Admin can view students & teachers registration requests and approve their registrations
+- Student & teacher can login and save their basic profile information
+- Admin can view and edit users' details
+- Admin can create academic sessions
+- Admin can create classes/grades and subjects for the classes
+- Admin can assign teachers to each subjects of the class
+- Teacher can view their assigned class's students' basic info
+- Teacher can take attendance for their respective class
+- Teacher can publish announcements for their class
+- Teacher can publish assignments for their class
+- Admin can publish announcement for
+	- all users
+	- teachers
+	- students
+	- a selected group of students
+	- a class
+- Admin can revoke/disable accounts of any user
+- Admin can create tests, exams for each class
+- Teacher can make entry of marks for each student
+- Student can view their exam result
+- Accountant can generate education fee for each student
+- Accountant can make payment entry when payment is made
+- Student can view their educational fees ledger
+- Email notification feature for all kinds of announcements
+- Telegram OTP feature for authenticated tasks
+- Realtime chat feature
+- OTP system
