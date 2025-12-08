@@ -79,7 +79,7 @@ public class ProfileController {
 		user.setProfilePicture(fileName);
 
 		userRepository.save(user);
-		
+
 		// delete old profile picture file if exists
 		try {
 			Files.delete(Paths.get(StorageService.DIRECTORY, oldProfilePicture));

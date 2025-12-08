@@ -1,6 +1,7 @@
 package com.example.demo.auth;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,8 +131,13 @@ public class AuthController {
 		user.setLastLoginAt(Instant.now());
 		userRepository.save(user);
 
-		// TODO: redirect to dashboard
-		return "redirect:/dashboard";
+		// redirect to dashboard
+		switch (user.getType()) {
+		case ADMIN:
+			return "redirect:/admin/dashboard";
+		default:
+			return "redirect:/dashboard";
+		}
 	}
 
 }
