@@ -57,6 +57,8 @@ public class User {
 	@UpdateTimestamp
 	private Instant updatedAt;
 	
+	private Instant lastLoginAt;
+	
 	public User() {
 	}
 
@@ -162,6 +164,14 @@ public class User {
 
 	public void setType(UserType type) {
 		this.type = type;
+	}
+
+	public Instant getLastLoginAt() {
+		return lastLoginAt;
+	}
+
+	public void setLastLoginAt(Instant lastLoginAt) {
+		this.lastLoginAt = lastLoginAt;
 	}
 	
 }

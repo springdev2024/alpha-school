@@ -1,3 +1,8 @@
+### Update 3
+To determine the last login time of a user, the date & time of the login event should be stored in the database. This field can be used to let the user know their last login time. Their may be other use cases.
+	- **lastLoginAt** Instant field is added to **User** entity
+	- The field is updated at the moment of login.
+
 ### Update 2
 - UserType field in Registration Form
 	- Registering user must select a user type **STUDENT** or **TEACHER**

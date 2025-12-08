@@ -127,6 +127,7 @@ public class AuthController {
 
 		// DONE: store created cookie in db
 		user.setSession(sessionID);
+		user.setLastLoginAt(Instant.now());
 		userRepository.save(user);
 
 		// TODO: redirect to dashboard

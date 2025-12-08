@@ -11,12 +11,12 @@ import com.example.demo.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class DashboardController {
+public class AdminDashboardController {
 	
 	@Autowired
 	private Authentication authentication;
 	
-	@GetMapping("/dashboard")
+	@GetMapping("/admin/dashboard")
 	public String getDashboard(HttpServletRequest request, Model model) {
 		//DONE: get user from cookie
 		// user verification
@@ -28,7 +28,7 @@ public class DashboardController {
 		}
 		
 		model.addAttribute("user", user);
-		return "dashboard.html";
+		return "admin/dashboard.html";
 	}
 	
 }
