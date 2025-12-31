@@ -1,3 +1,37 @@
+### Update 6 (2025.12.31)
+In an e-commerce system, a customer can place many orders but only one order at a time. Each order must be recorded in the database's table. Among other information in that record, the customer who made the order must also be recorded; usually the **id** of the customer is recorded. In this way a record of one table can be related to a record of another table. This relationship between **Order** and it's **Customer** thus recorded is known as Foreign Key(FK) relationship in the relational database system. Such a relationship is crucial for data integrity.
+
+Foreign Key(FK) relationship of type *one-to-one*, *many-to-one* & *many-to-many* can be designed to enforce certain data integrity constraint. Hibernate ORM provides equivalent annotations for specifying such constraints. The annotations are: *@OneToOne*, *@ManyToOne* and *@ManyToMany*.
+
+```
+@Entity
+public class AcademicClass() {
+	...
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	...
+}
+```
+
+The above entity records class or grade levels of an academy.
+
+```
+@Entity
+public class Course() {
+	...
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne
+	private AcademicClass academicClass;
+	...
+}
+```
+
+This entity records courses of a class by the use of Foreign Key relationship. Here, each course belongs a specific class. So many courses may belong to a single class. In other words, a class can have many courses or subjects.
+
 ### Update 5 (2025.12.09)
 Database credentials, API tokens, etc. used in the project must be securely kept outside the source directory. Storing such data as System/environment variables is the best way to prevent such credentials from being exposed.
 
