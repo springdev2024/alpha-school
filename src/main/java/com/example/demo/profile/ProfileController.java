@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.Routes;
 import com.example.demo.auth.Authentication;
 import com.example.demo.storage.StorageService;
 import com.example.demo.user.User;
@@ -37,7 +38,7 @@ public class ProfileController {
 		User user = authentication.authenticate(request);
 
 		if (user == null) {
-			return "redirect:/login";
+			return "redirect:" + Routes.LOGIN;
 		}
 
 		model.addAttribute("user", user);
@@ -50,7 +51,7 @@ public class ProfileController {
 		User user = authentication.authenticate(request);
 		if (user == null) {
 			// TODO: show Not Authorized message
-			return "redirect:/login";
+			return "redirect:" + Routes.LOGIN;
 		}
 
 		model.addAttribute("user", user);
@@ -63,7 +64,7 @@ public class ProfileController {
 		User user = authentication.authenticate(request);
 		if (user == null) {
 			// TODO: show Not Authorized message
-			return "redirect:/login";
+			return "redirect:" + Routes.LOGIN;
 		}
 
 		System.out.println("Address: " + form.getAddress());
@@ -86,7 +87,7 @@ public class ProfileController {
 		} catch (Exception e) {
 		}
 
-		return "redirect:/profile";
+		return "redirect:" + Routes.PROFILE;
 	}
 
 }

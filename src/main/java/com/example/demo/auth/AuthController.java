@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.Routes;
+import com.example.demo.Templates;
 import com.example.demo.Utilities;
 import com.example.demo.ValidationError;
 import com.example.demo.user.Gender;
@@ -31,15 +33,15 @@ public class AuthController {
 
 	private final List<String> userTypes = List.of(UserType.STUDENT.toString(), UserType.TEACHER.toString());
 
-	@GetMapping("/register")
+	@GetMapping(Routes.REGISTER)
 	public String getRegisterPage(Model model) {
 		model.addAttribute("error", new ValidationError());
 		model.addAttribute("registerForm", new RegistrationForm());
 		model.addAttribute("userTypes", userTypes);
-		return "register.html";
+		return Templates.REGISTER;
 	}
 
-	@PostMapping("/register")
+	@PostMapping(Routes.REGISTER)
 	public String registerUser(RegistrationForm form, Model model) {
 
 		System.out.println("Email:" + form.getEmail());
@@ -50,7 +52,7 @@ public class AuthController {
 			// send "First name cannot be empty"
 			model.addAttribute("error", new ValidationError("First name cannot be empty"));
 			model.addAttribute("registerForm", form);
-			return "register.html";
+			return Templates.REGISTER;
 		}
 
 		// TODO: Make sure email is valid
@@ -60,7 +62,7 @@ public class AuthController {
 			model.addAttribute("error", new ValidationError(
 					"Password should be at least 8 characters long and should contain at least one number and at least one uppercase letter"));
 			model.addAttribute("registerForm", form);
-			return "register.html";
+			return Templates.REGISTER;
 		}
 
 		// TODO: Make sure password & confirm password are equal
@@ -70,7 +72,7 @@ public class AuthController {
 		if (userRepository.existsByEmail(form.getEmail())) {
 			model.addAttribute("error", new ValidationError("Email already exists"));
 			model.addAttribute("registerForm", form);
-			return "register.html";
+			return Templates.REGISTER;
 		}
 
 		// DONE: if any error exists; show it in the form
@@ -92,17 +94,17 @@ public class AuthController {
 
 		// TODO: Send successful message and redirect to login page.
 
-		return "redirect:/login";
+		return "redirect:" + Routes.LOGIN;
 	}
 
-	@GetMapping("/login")
+	@GetMapping(Routes.LOGIN)
 	public String getLoginPage(Model model) {
 		model.addAttribute("error", new ValidationError());
 		model.addAttribute("form", new LoginForm());
-		return "login.html";
+		return Templates.LOGIN;
 	}
 
-	@PostMapping("/login")
+	@PostMapping(Routes.LOGIN)
 	public String loginUser(LoginForm form, Model model, HttpServletResponse response) throws IOException {
 
 		// DONE: find user in db by form's email
@@ -117,7 +119,7 @@ public class AuthController {
 		if (user == null || !passwordEncoder.matches(form.getPassword(), user.getPassword())) {
 			model.addAttribute("error", new ValidationError("Invalid credentials!"));
 			model.addAttribute("form", form);
-			return "login.html";
+			return Templates.LOGIN;
 		}
 
 		// DONE: if match found, set a new cookie (session) for the user
@@ -134,9 +136,9 @@ public class AuthController {
 		// redirect to dashboard
 		switch (user.getType()) {
 		case ADMIN:
-			return "redirect:/admin/dashboard";
+			return "redirect:" + Routes.ADMIN_DASHBOARD;
 		default:
-			return "redirect:/dashboard";
+			return "redirect:" + Routes.STUDENT_DASHBOARD;
 		}
 	}
 
